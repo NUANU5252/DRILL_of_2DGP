@@ -18,7 +18,6 @@ def handle_events():  # 키_마 등등 조작 함수
 
 open_canvas(KPU_WIDTH, KPU_HEIGHT)
 
-# fill here
 kpu_ground = load_image('KPU_GROUND.png')
 character = load_image('animation_sheet.png')
 hand = load_image('hand_arrow.png  ')
