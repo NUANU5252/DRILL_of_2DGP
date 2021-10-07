@@ -108,5 +108,6 @@ for k in k_array:
     b = a / k
     draw_Parametric_Representation(a, b)
     turtle.clear()
+    prepare_turtle_canvas()
 
 turtle.done()
