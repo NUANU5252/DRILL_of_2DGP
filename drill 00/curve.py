@@ -7,7 +7,7 @@ def stop():
 
 
 def prepare_turtle_canvas():
-    turtle.setup(1024, 768)
+    turtle.setup(1920, 1080) # 1024 768
     turtle.bgcolor(0.2, 0.2, 0.2)
     turtle.penup()
     turtle.hideturtle()
@@ -89,7 +89,18 @@ def draw_curve_4_points(p1, p2, p3, p4):
     draw_point(p4)
 
 
+def draw_line(p1, p2):
+    draw_big_point(p1)
+    draw_big_point(p2)
 
+    x1, y1 = p1; x2, y2 = p2 # 여기서 ;의 의미는?
+
+    for i in range(-100, 100, 2):
+        t = i/100
+        x = (1 - t) * x1 + t * x2
+        y = (1 - t) * y1 + t * y2
+        draw_point((x,y))
+    
 
 
 prepare_turtle_canvas()
@@ -97,5 +108,6 @@ prepare_turtle_canvas()
 p1 = x1, y1 = random.randint(-300, -100), random.randint(100, 300)
 p2 = x2, y2 = random.randint(-50, -10), random.randint(10, 50)
 
+draw_line(p1, p2)
 
 turtle.done()
