@@ -100,14 +100,53 @@ def draw_line(p1, p2):
         x = (1 - t) * x1 + t * x2
         y = (1 - t) * y1 + t * y2
         draw_point((x,y))
-    
 
+
+def blend_lines(p2, p3, p4, p1):
+    draw_big_point(p1); draw_big_point(p2); draw_big_point(p3); draw_big_point(p4)
+
+    x1, y1 = p1; x2, y2 = p2; x3, y3 = p3; x4, y4 = p4
+
+    for i in range(0, 100, 2):
+        t = i/100
+        
+        #left line
+        lx = (1 - t) * x2 + t * x3
+        ly = (1 - t) * y2 + t * y3
+        draw_point((lx,ly))
+        
+        #right line
+        rx = (1 - t) * x4 + t * x1
+        ry = (1 - t) * y4 + t * y1
+        draw_point((rx,ry))
+
+        #blend lines
+        x = (1 - t) * lx + t * rx
+        y = (1 - t) * ly + t * ry
+        draw_point((x,y))
+
+
+def draw_curve_3_points(p1, p2, p3):
+    draw_big_point(p1); draw_big_point(p2); draw_big_point(p3);
+    x1, y1 = p1; x2, y2 = p2; x3, y3 = p3
+    
+    for i in range(0, 100, 2):
+        t = i/100
+        x = (2*t**2-3*t+1)*x1 + (-4*t**2+4*t)*x2 + (2*t**2-t)*x3
+        y = (2*t**2-3*t+1)*y1 + (-4*t**2+4*t)*y2 + (2*t**2-t)*y3
+        draw_point((x,y))
+        
 
 prepare_turtle_canvas()
 
-p1 = x1, y1 = random.randint(-300, -100), random.randint(100, 300)
-p2 = x2, y2 = random.randint(-50, -10), random.randint(10, 50)
+p1 = x1, y1 = random.randint(100, 300), random.randint(100, 300)
+p2 = x2, y2 = random.randint(-300, -100), random.randint(100, 300)
+p3 = x3, y3 = random.randint(-300, -100), random.randint(-300, -200)
+p4 = x4, y4 = random.randint(200, 400), random.randint(-300, -300)
 
-draw_line(p1, p2)
+#draw_line(p1, p2)
+#blend_lines(p2, p3, p4, p1)
+#draw_curve_3_points(p1, p2, p3)
+draw_curve_4_points(p2, p4, p1, p3)
 
 turtle.done()
