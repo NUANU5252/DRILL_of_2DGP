@@ -42,12 +42,16 @@ def resume():
 
 
 def handle_events():
+    global boy
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_framework.quit()
+            game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_r:
+            del boy
+            boy = Boy()
         else:
             boy.handle_event(event)
 
