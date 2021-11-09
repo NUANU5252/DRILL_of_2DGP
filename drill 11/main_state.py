@@ -7,7 +7,8 @@ from pico2d import *
 import game_framework
 
 
-from boy import Boy
+# from boy import Boy
+from boy_from_class import Boy
 from grass import Grass
 
 
