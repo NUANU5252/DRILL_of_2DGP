@@ -141,9 +141,9 @@ class Boy:
 
 
     def fire_ball(self):
-        ball = Ball(self.x, self.y, self.dir * RUN_SPEED_PPS * 10)
-        game_world.add_object(ball, 1)
-
+        # ball = Ball(self.x, self.y, self.dir * RUN_SPEED_PPS * 10)
+        # game_world.add_object(ball, 1)
+        pass
 
     def add_event(self, event):
         self.event_que.insert(0, event)

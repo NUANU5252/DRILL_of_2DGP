@@ -6,10 +6,12 @@ import game_framework
 class Ball:
     image = None
 
-    def __init__(self):
+    def __init__(self, x, y, speed):
         if Ball.image == None:
             Ball.image = load_image('ball21x21.png')
-        self.x, self.y, self.fall_speed = random.randint(0, 1600-1), 60, 0
+        self.x = x
+        self.y = y
+        self.fall_speed = random.randint(0, 1600-1), 60, 0
 
     def get_bb(self):
         # fill here

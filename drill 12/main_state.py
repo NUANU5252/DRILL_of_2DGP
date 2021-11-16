@@ -9,6 +9,7 @@ import game_world
 from boy import Boy
 from grass import Grass
 from ball import Ball
+from bird import Bird
 
 name = "MainState"
 
@@ -16,6 +17,7 @@ boy = None
 grass = None
 balls = []
 big_balls = []
+birds = []
 
 
 def collide(a, b):
@@ -34,7 +36,9 @@ def enter():
     grass = Grass()
     game_world.add_object(grass, 0)
 
-    # fill here for balls
+    global birds
+    birds = [Bird() for i in range(5)]
+    game_world.add_objects(birds, 1)
 
 
 
