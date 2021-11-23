@@ -80,6 +80,9 @@ def update():
         if collide(ball, boy):
             balls.remove(ball)
             game_world.remove_object(ball)
+    for i in range(5):
+        if collide(bricks[i], boy):
+            boy.on_brick(i)
 
 
 def draw():

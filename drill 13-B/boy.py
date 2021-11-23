@@ -1,4 +1,5 @@
 import game_framework
+import main_state
 from pico2d import *
 from ball import Ball
 
@@ -55,6 +56,12 @@ class IdleState:
         boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(SLEEP_TIMER)
+        if boy.collided_brick == None:
+            boy.x = clamp(25, boy.x, 1600 - 25)
+        else:
+            boy.x += main_state.bricks[boy.collided_brick].speed * game_framework.frame_time
+            boy.x = clamp(main_state.bricks[boy.collided_brick].x - 90, boy.x,
+                          main_state.bricks[boy.collided_brick].x + 90)
 
     def draw(boy):
         if boy.dir == 1:
@@ -83,8 +90,14 @@ class RunState:
     def do(boy):
         #boy.frame = (boy.frame + 1) % 8
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        boy.x += boy.velocity * game_framework.frame_time
-        boy.x = clamp(25, boy.x, 1600 - 25)
+        if boy.collided_brick == None:
+            boy.x = clamp(25, boy.x, 1600 - 25)
+            boy.x += boy.velocity * game_framework.frame_time
+        else:
+            boy.x += (boy.velocity + main_state.bricks[boy.collided_brick].speed) * game_framework.frame_time
+            boy.x = clamp(main_state.bricks[boy.collided_brick].x - 90, boy.x, main_state.bricks[boy.collided_brick].x + 90)
+
+
 
     def draw(boy):
         if boy.dir == 1:
@@ -103,6 +116,13 @@ class SleepState:
 
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        if boy.collided_brick == None:
+            boy.x = clamp(25, boy.x, 1600 - 25)
+            boy.x += boy.velocity * game_framework.frame_time
+        else:
+            boy.x += (boy.velocity + main_state.bricks[boy.collided_brick].speed) * game_framework.frame_time
+            boy.x = clamp(main_state.bricks[boy.collided_brick].x - 90, boy.x, main_state.bricks[boy.collided_brick].x + 90)
+
 
     def draw(boy):
         if boy.dir == 1:
@@ -133,17 +153,22 @@ class Boy:
         self.frame = 0
         self.event_que = []
         self.cur_state = IdleState
+        self.collided_brick = None
         self.cur_state.enter(self, None)
 
     def get_bb(self):
         # fill here
         return self.x - 30, self.y - 30, self.x + 30, self.y + 50
 
-
-
     def fire_ball(self):
         pass
 
+    def on_brick(self, num_of_brick):
+        self.collided_brick = num_of_brick
+        self.y = main_state.bricks[self.collided_brick].y + 50
+
+        # self.velocity += self.collided_brick.speed
+        pass
 
     def add_event(self, event):
         self.event_que.insert(0, event)
